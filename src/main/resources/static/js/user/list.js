@@ -1,4 +1,4 @@
-x/** 削除ボタンを押した時の処理 */
+/** 削除ボタンを押した時の処理 */
 function clickBtnDelete() {
     var idck;
 
