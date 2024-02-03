@@ -25,7 +25,9 @@ import com.techacademy.entity.User;
 @SpringBootTest
 @AutoConfigureMockMvc
 @ExtendWith(SpringExtension.class)
+
 class UserControllerTest {
+
     private MockMvc mockMvc;
 
     private final WebApplicationContext webApplicationContext;
@@ -42,22 +44,26 @@ class UserControllerTest {
                 .apply(springSecurity()).build();
     }
 
+
     @Test
+
     @DisplayName("User更新画面")
     @WithMockUser
-    void testGetUser() throws Exception {
+
+    void testGetList() throws Exception {
         // HTTPリクエストに対するレスポンスの検証
         MvcResult result = mockMvc.perform(get("/user/update/1/")) // URLにアクセス
             .andExpect(status().isOk()) // ステータスを確認
-            .andExpect(model().attributeExists("user")) // Modelの内容を確認
+            .andExpect(model().attributeExists("userlist")) // Modelの内容を確認
             .andExpect(model().hasNoErrors()) // Modelのエラー有無の確認
-            .andExpect(view().name("user/update")) // viewの確認
+            .andExpect(view().name("user/list")) // viewの確認
             .andReturn(); // 内容の取得
 
         // userの検証
         // Modelからuserを取り出す
-        User user = (User)result.getModelAndView().getModel().get("user");
+        User user = (User)result.getModelAndView().getModel().get("userlist");
         assertEquals(user.getId(), 1);
         assertEquals(user.getName(), "キラメキ太郎");
     }
+
 }
