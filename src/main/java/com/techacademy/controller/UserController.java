@@ -58,12 +58,12 @@ public class UserController {
     @GetMapping("/update/{id}/")
     public String getUser(@PathVariable("id") Integer id, Model model,User user) {
         if(id == null) {                    // User登録
-            service.saveUser(user);         // 一覧画面にリダイレクト
-            return "redirect:/user/list";   // postUser()から遷移。ModelにはpostUser()から渡された引数のuserをセットする
+            service.saveUser(user);
         }else {
             model.addAttribute("user", service.getUser(id));// Modelに登録
             return "user/update";           // User更新画面に遷移
         }
+        return null;
     }
 
     /** User更新処理 */
