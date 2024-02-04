@@ -13,12 +13,14 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.ApplicationContext;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+import java.util.List;
 
 import com.techacademy.entity.User;
 
@@ -44,7 +46,6 @@ class UserControllerTest {
                 .apply(springSecurity()).build();
     }
 
-
     @Test
     @DisplayName("一覧画面")
     @WithMockUser
@@ -58,10 +59,22 @@ class UserControllerTest {
             .andReturn(); // 内容の取得
 
         // userの検証
-        // Modelからuserを取り出す
-        User user = (User)result.getModelAndView().getModel().get("userlist");
-        assertEquals(user.getId(), 1);
-        assertEquals(user.getName(), "キラメキ太郎");
+        // Modelからuserlistを取り出す
+
+        List<User> userlist = (List<User>)result.getModelAndView().getModel().get("userlist");
+        User user1 = userlist.get(0);
+        assertEquals(user1.getId(), 1);
+        assertEquals(user1.getName(), "キラメキ太郎");
+
+        User user2 = userlist.get(1);
+        assertEquals(user2.getId(), 2);
+        assertEquals(user2.getName(), "キラメキ次郎");
+
+        User user3 = userlist.get(2);
+        assertEquals(user3.getId(), 3);
+        assertEquals(user3.getName(), "キラメキ花子");
+
+    }
     }
 
-}
+
